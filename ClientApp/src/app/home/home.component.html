@@ -1,0 +1,45 @@
+<!--<template>
+  <amplify-authenticator>
+    <div>
+      My App
+      <amplify-sign-out></amplify-sign-out>
+    </div>
+  </amplify-authenticator>
+</template>-->
+
+  <div class="row justify-content-center align-items-center h-100">
+    <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+        <div class="form-group">
+
+          <mat-form-field appearance="standard" floatLabel="always" style="width:100%">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+
+        </div>
+        <div class="form-group">
+
+          <mat-form-field appearance="standard" floatLabel="always" style="width:100%">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" autocomplete="off">
+            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+        </div>
+        <div class="form-group"  *ngIf="successLoggedIn === false">
+          <h6 style="color:red; text-align:center">Invalid Username/password</h6>
+        </div>
+
+        <br />
+        <div class="form-group">
+
+          <button type="submit" mat-flat-button color="primary" style="width:100%">LOG IN</button>
+
+        </div>
+      </form>
+    </div>
+</div>

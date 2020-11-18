@@ -1,0 +1,15 @@
+{
+  "serverless": {
+    "provider": "aws",
+    "project": "Ares",
+    "skipInstall": false,
+    "directory": ".",
+    "lambdaTS": false,
+    "offline": false,
+    "clientProject": "Ares",
+    "serverless": {
+      "aws": {},
+      "gcloud": {}
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<style>
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .overlay {
+    height: 100vh;
+    width: 100%;
+    /*background-color: rgba(0, 0, 0, 0.286);*/
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: fixed;
+  }
+</style>
+
+<mat-tab-group>
+  <mat-tab label="Material Components">
+    <p>We are going to use different material components to create nice looking angular app.</p>
+  </mat-tab>
+  <mat-tab label="Consume .NET Core Web API">
+    <p>We will consume our .NET Core application. Basically, we will create complete CRUD client app.</p>
+  </mat-tab>
+  <mat-tab label="Fully responsive navigation menu">
+    <p>By using material components, we are going to create fully responsive navigation menu, with its side-bar as well.</p>
+  </mat-tab>
+</mat-tab-group>
+
+<div style="padding: 13px;">
+  <mat-card *ngFor="let weather of weathers" style="margin-top:10px;">
+    <mat-card-header>
+      <mat-card-title>{{weather.summary}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{weather.temperatureC}} - {{weather.date}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button> Buy product</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="overlay" *ngIf="weathers.length === 0" >
+  <div class="center">
+    <mat-spinner [diameter]="50" style="margin:0 auto;"></mat-spinner>
+  </div>
+</div>

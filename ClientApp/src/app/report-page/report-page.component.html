@@ -1,0 +1,95 @@
+
+  
+  <form [formGroup]="AssetSummary" (ngSubmit)="onSubmit(AssetSummary)">
+    <div class="row">
+      <div class="col"><h5>Single Asset Summary</h5></div>
+      <div class=" col-4">
+        <mat-slide-toggle color="primary" formControlName="reportOptions" style="font-size:small">Other Options</mat-slide-toggle>
+      </div>
+    </div>    
+    <ng-container *ngIf="!AssetSummary.value.reportOptions">
+      <div class="row">
+        <div class="col-8 col-sm-12">
+          <mat-form-field>
+            <mat-select placeholder="Select Portfolio" formControlName="selectedPortfolio" class="select" (selectionChange)="changePortfolio($event)">
+              <mat-option *ngFor="let x of portfolios" [value]="x">{{ x.Value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-select placeholder="Select Scenario" formControlName="selectedScenario" class="select">
+          <mat-option *ngFor="let x of scenarios" [value]="x">{{ x.Value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br />
+      <div class="row">
+        <div class="col-8"><div style="position: absolute; left: 15px; bottom: 15px;">Select Properties</div></div>
+        <div class="col-4">
+          <mat-form-field>
+            <mat-label style="font-size:small">Search</mat-label><input matInput (keyup)="applyFilter($event)">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8" style="height:250px; overflow:auto">
+        <table mat-table [dataSource]="propertyDataSource" matSort>
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selectedProperties.hasValue() && isAllSelected()"
+                            [indeterminate]="selectedProperties.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </mat-header-cell>>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selectedProperties.toggle(row) : null"
+                            [checked]="selectedProperties.isSelected(row)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="externalID">
+            <mat-header-cell *matHeaderCellDef>External ID</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.externalID}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell mat-sort-header *matHeaderCellDef style="width:70%">Property Name</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </table>
+      </div>
+    </ng-container>
+
+    <!--<ng-container *ngIf="AssetSummary.value.reportOptions">
+      <div class="row">
+        <div class="col-8">
+          <mat-form-field>
+            <mat-select placeholder="Rent Roll Sort 1" formControlName="rentRollSort1" class="select">
+              <mat-option *ngFor="let x of " [value]="x">{{ x.Value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>-->
+
+    <br />
+    <section>
+      <button style="width:100%" type="submit" mat-flat-button color="primary">Run Report</button>      
+    </section>
+
+    <div class="overlay" *ngIf="processing === true">
+      <div class="center">
+        <mat-spinner [diameter]="50" style="margin:0 auto;"></mat-spinner>
+      </div>
+    </div>
+  </form>
+
+
