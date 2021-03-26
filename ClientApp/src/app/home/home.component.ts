@@ -29,13 +29,13 @@ export class HomeComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     if (this.loginForm.valid) {
-      this.authService.signIn(form.get('username').value, form.get('password').value).then(user =>
-        this.router.navigate(['/reportpage']), () => this.successLoggedIn = false)
+      //this.authService.signIn(form.get('username').value, form.get('password').value).then(user =>
+      //  this.router.navigate(['/reportpage']), () => this.successLoggedIn = false)
 
-          .catch(() => {
-            this.successLoggedIn = false;
-            //this.router.navigate(['/']);
-          });
+      //    .catch(() => {
+      //      this.successLoggedIn = false;
+      //      //this.router.navigate(['/']);
+      //    });
     }
   }
 }

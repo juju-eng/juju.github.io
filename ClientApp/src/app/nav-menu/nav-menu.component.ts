@@ -32,7 +32,7 @@ export class NavMenuComponent implements OnInit {
 
       .catch(() => {
         console.log("Not signed in");
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
       });
   }
 
